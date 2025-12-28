@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="JobForMe icon">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f8fbff" stop-opacity="0.92" />
+      <stop offset="100%" stop-color="#edf5f4" stop-opacity="0.85" />
+    </linearGradient>
+    <linearGradient id="tealGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d5c68" />
+      <stop offset="100%" stop-color="#0a3840" />
+    </linearGradient>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f0b429" />
+      <stop offset="100%" stop-color="#e38710" />
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="16" fill="url(#bgGradient)" />
+  <path d="M20 16h14v16c0 4.8 2.4 7.6 6.6 7.6h4.6l-3.8 10.4h-5.2c-11 0-16.2-6.4-16.2-17.6V16z" fill="url(#tealGradient)" />
+  <path d="M36 16h11l17 34h-11.2l-3.6-7.8h-7L39.6 50h-11z" fill="url(#goldGradient)" />
+  <path d="M43.8 34.2h7.8L47.6 24z" fill="#fef5d4" />
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="JobForMe logo">
+  <defs>
+    <linearGradient id="tealGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0c6f63" />
+      <stop offset="100%" stop-color="#0a4f46" />
+    </linearGradient>
+    <linearGradient id="goldGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#f9b233" />
+      <stop offset="100%" stop-color="#f28b16" />
+    </linearGradient>
+  </defs>
+  <rect x="6" y="10" width="108" height="100" rx="26" fill="#ffffff" opacity="0.12" />
+  <path d="M26 28h22v40c0 9 6.4 15 16 15h8.5l-6.2 18H52c-19.1 0-27-11.2-27-29.5V28z" fill="url(#tealGlow)" />
+  <path d="M68 28h18l26 74H92l-5.6-15H79.6L74 102H56z" fill="url(#goldGlow)" />
+  <path d="M81.4 68h13.2L88 45.2z" fill="#fde9b3" />
+</svg>
