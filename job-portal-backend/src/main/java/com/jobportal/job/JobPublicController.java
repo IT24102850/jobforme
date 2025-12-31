@@ -24,26 +24,12 @@ public class JobPublicController {
     private final JobService jobService;
 
     @GetMapping
-    public ResponseEntity<ApiResponse<PaginationResponse<JobResponse>>> searchJobs(@RequestParam(required = false) String keyword,
-                                                                                  @RequestParam(required = false) String location,
-                                                                                  @RequestParam(required = false) JobType type,
-                                                                                  @RequestParam(required = false) String skills,
-                                                                                  @RequestParam(defaultValue = "0") int page,
-                                                                                  @RequestParam(defaultValue = "10") int size) {
-        JobSearchCriteria criteria = JobSearchCriteria.builder()
-                .keyword(keyword)
-                .location(location)
-                .type(type)
-                .skills(skills)
-                .page(page)
-                .size(size)
-                .build();
-        PaginationResponse<JobResponse> jobs = jobService.searchJobs(criteria);
-        return ResponseEntity.ok(ApiResponse.<PaginationResponse<JobResponse>>builder()
-                .success(true)
-                .message("Jobs retrieved")
-                .data(jobs)
-                .build());
+    public ResponseEntity<org.springframework.data.domain.Page<JobResponse>> getJobs(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size) {
+        org.springframework.data.domain.Pageable pageable = org.springframework.data.domain.PageRequest.of(page, size);
+        org.springframework.data.domain.Page<JobResponse> jobs = jobService.getOpenJobsWithCompany(pageable);
+        return ResponseEntity.ok(jobs);
     }
 
     @GetMapping("/{id}")

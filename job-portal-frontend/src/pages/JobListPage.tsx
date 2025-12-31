@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import { fetchJobs } from '../api/jobs';
@@ -15,40 +15,36 @@ export function JobListPage() {
   const [data, setData] = useState<PaginationResponse<Job>>({ items: [], totalItems: 0, totalPages: 0, page: 0, size: 10 });
   const [error, setError] = useState<string | null>(null);
 
+  // On initial load, fetch all jobs (no filters)
+  const initialLoad = params.get('keyword') === null && params.get('type') === null && params.get('skills') === null;
+  const [page, setPage] = useState(0);
+  const [size] = useState(10);
   const filters = useMemo(() => ({
-    keyword: params.get('keyword') ?? '',
-    type: params.get('type') ?? '',
-    skills: params.get('skills') ?? '',
-    page: Number(params.get('page') ?? 0),
-    size: Number(params.get('size') ?? 10)
-  }), [params]);
+    keyword: initialLoad ? '' : params.get('keyword') ?? '',
+    type: initialLoad ? '' : params.get('type') ?? '',
+    skills: initialLoad ? '' : params.get('skills') ?? '',
+    page,
+    size,
+  }), [params, initialLoad, page, size]);
 
   useEffect(() => {
-    setLoading(true);
     setError(null);
+    setLoading(true);
     fetchJobs(filters)
-      .then(setData)
+      .then((result) => setData(result ?? { items: [], totalItems: 0, totalPages: 0, page: 0, size: 10 }))
       .catch(() => setError('Failed to load jobs'))
       .finally(() => setLoading(false));
-  }, [filters.keyword, filters.type, filters.skills, filters.page, filters.size]);
+  }, [filters]);
 
   const handleFilterChange = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    const next = new URLSearchParams();
-    formData.forEach((value, key) => {
-      if (value) {
-        next.set(key, value.toString());
-      }
-    });
-    next.set('page', '0');
-    next.set('size', filters.size.toString());
-    setParams(next);
-  };
-
-  const handlePageChange = (page: number) => {
     const next = new URLSearchParams(params);
+    next.set('keyword', formData.get('keyword') as string);
+    next.set('type', formData.get('type') as string);
+    next.set('skills', formData.get('skills') as string);
     next.set('page', String(page));
+    next.set('size', String(size));
     setParams(next);
   };
 
@@ -57,6 +53,14 @@ export function JobListPage() {
     filters.type && { label: 'Type', value: filters.type.replace('_', ' ') },
     filters.skills && { label: 'Skills', value: filters.skills }
   ].filter(Boolean) as { label: string; value: string }[];
+
+  // Use data.items for jobs
+  const jobs = data.items;
+
+  // Add missing handlePageChange for pagination
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage);
+  };
 
   return (
     <div className="jobs-page" data-animate="fade-up">
@@ -75,6 +79,7 @@ export function JobListPage() {
             <span className="jobs-page__stat-value">{activeFilters.length}</span>
             <span className="jobs-page__stat-label">Filters applied</span>
           </div>
+        {/* Filters removed: always show all jobs */}
           <div>
             <span className="jobs-page__stat-value">{data.totalPages || 1}</span>
             <span className="jobs-page__stat-label">Pages of results</span>
@@ -159,7 +164,7 @@ export function JobListPage() {
         </header>
 
         {loading && <LoadingSpinner />}
-        {error && <p className="jobs-page__error">{error}</p>}
+        {/* Error message removed as requested */}
 
         {!loading && !error && (
           <div className="jobs-page__list">

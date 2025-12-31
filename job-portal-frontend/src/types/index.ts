@@ -41,6 +41,10 @@ export interface CompanySummary {
   about?: string;
 }
 
+export interface JobImage {
+  imageUrl: string;
+}
+
 export interface Job {
   id: string;
   title: string;
@@ -53,6 +57,7 @@ export interface Job {
   status: JobStatus;
   createdAt: string;
   company?: CompanySummary;
+  images?: JobImage[];
 }
 
 export interface JobFormValues {

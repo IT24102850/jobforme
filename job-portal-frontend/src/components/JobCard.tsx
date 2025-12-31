@@ -27,6 +27,14 @@ export function JobCard({ job, showActions, footer }: JobCardProps) {
           Posted {formatDate(job.createdAt)}
         </div>
       </div>
+
+      {/* Show job image or 'No image' message */}
+      {Array.isArray(job.images) && job.images.length > 0 ? (
+        <img src={job.images[0].imageUrl} alt="Job" style={{ width: '100%', maxHeight: '180px', objectFit: 'cover', marginBottom: '0.5rem', borderRadius: '8px' }} />
+      ) : (
+        <div style={{ color: '#ccc', fontStyle: 'italic', marginBottom: '0.5rem' }}>No image</div>
+      )}
+
       <p style={{ margin: '0.35rem 0 0', color: 'rgba(226, 232, 240, 0.82)' }}>
         {job.description.slice(0, 180)}...
       </p>

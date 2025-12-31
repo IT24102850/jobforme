@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthService {
 
-    private static final Set<UserRole> REGISTRATION_ROLES = Set.of(UserRole.SEEKER, UserRole.EMPLOYER);
+    private static final Set<UserRole> REGISTRATION_ROLES = new java.util.HashSet<>(java.util.Arrays.asList(UserRole.SEEKER, UserRole.EMPLOYER));
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;

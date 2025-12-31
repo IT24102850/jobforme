@@ -27,28 +27,10 @@ public class JobService {
     private final JobRepository jobRepository;
     private final CompanyRepository companyRepository;
 
-    public PaginationResponse<JobResponse> searchJobs(JobSearchCriteria criteria) {
-        Specification<Job> spec = Specification.where(JobSpecifications.onlyOpen())
-                .and(JobSpecifications.withKeyword(criteria.getKeyword()))
-                .and(JobSpecifications.withLocation(criteria.getLocation()))
-                .and(JobSpecifications.withType(criteria.getType()))
-                .and(JobSpecifications.withSkills(criteria.getSkills()));
 
-        int page = Math.max(criteria.getPage(), 0);
-        int size = Math.max(criteria.getSize(), 1);
-        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
-        Page<Job> jobs = jobRepository.findAll(spec, pageable);
-        List<JobResponse> items = jobs.stream()
-                .map(JobResponse::from)
-                .collect(Collectors.toList());
-
-        return PaginationResponse.<JobResponse>builder()
-                .items(items)
-                .totalItems(jobs.getTotalElements())
-                .totalPages(jobs.getTotalPages())
-                .page(page)
-                .size(size)
-                .build();
+    public org.springframework.data.domain.Page<JobResponse> getOpenJobsWithCompany(Pageable pageable) {
+        Page<Job> jobs = jobRepository.findAllWithCompany(pageable);
+        return jobs.map(JobResponse::from);
     }
 
     public JobResponse getJob(UUID jobId) {

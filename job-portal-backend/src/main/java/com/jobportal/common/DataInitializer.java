@@ -41,12 +41,13 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     private void seedAdminUser() {
-        userRepository.findByEmail(adminEmail).ifPresentOrElse(user -> {
+        if (userRepository.findByEmail(adminEmail).isPresent()) {
+            User user = userRepository.findByEmail(adminEmail).get();
             if (user.getRole() != UserRole.ADMIN) {
                 user.setRole(UserRole.ADMIN);
                 userRepository.save(user);
             }
-        }, () -> {
+        } else {
             User admin = new User();
             admin.setName("System Admin");
             admin.setEmail(adminEmail);
@@ -54,7 +55,7 @@ public class DataInitializer implements CommandLineRunner {
             admin.setRole(UserRole.ADMIN);
             admin.setEnabled(true);
             userRepository.save(admin);
-        });
+        }
     }
 
     private void seedSampleJob() {

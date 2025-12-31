@@ -50,7 +50,7 @@ public class JobResponse {
                 .status(job.getStatus())
                 .createdAt(job.getCreatedAt())
                 .imageUrls(Optional.ofNullable(job.getImages())
-                    .orElseGet(List::of)
+                    .orElseGet(() -> new java.util.ArrayList<JobImage>())
                     .stream()
                     .map(JobImage::getImageUrl)
                     .collect(Collectors.toList()))

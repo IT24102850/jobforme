@@ -67,7 +67,7 @@ public class Job {
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
 
-    @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<JobImage> images = new ArrayList<>();
 
     public void replaceImages(List<JobImage> newImages) {

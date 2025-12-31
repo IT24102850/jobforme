@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const baseUrl = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.replace(/\/$/, '') ?? 'http://localhost:8081';
+
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8080',
+  baseURL: baseUrl,
   headers: {
     'Content-Type': 'application/json'
   }
@@ -21,5 +23,16 @@ apiClient.interceptors.request.use(config => {
   }
   return config;
 });
+
+apiClient.interceptors.response.use(
+  response => response,
+  error => {
+    // Surface network failures in the console to aid debugging.
+    if (!error.response) {
+      console.error('API network error:', error);
+    }
+    return Promise.reject(error);
+  }
+);
 
 export default apiClient;

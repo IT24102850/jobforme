@@ -17,6 +17,7 @@ com\jobportal\company\CompanyRepository.class
 com\jobportal\user\User.class
 com\jobportal\auth\CustomUserDetailsService.class
 com\jobportal\application\JobApplicationResponse.class
+com\jobportal\dto\JobResponse.class
 com\jobportal\application\JobApplicationService.class
 com\jobportal\common\ApiResponse.class
 com\jobportal\seeker\SeekerProfileResponse$SeekerProfileResponseBuilder.class
@@ -42,6 +43,7 @@ com\jobportal\common\PaginationResponse$PaginationResponseBuilder.class
 com\jobportal\job\JobImage.class
 com\jobportal\auth\JwtProperties.class
 com\jobportal\common\DataInitializer.class
+com\jobportal\dto\JobResponse$CompanyInfo.class
 com\jobportal\seeker\SeekerProfileRequest.class
 com\jobportal\user\UserRole.class
 com\jobportal\auth\LoginRequest.class
@@ -55,7 +57,9 @@ com\jobportal\common\FileStorageService.class
 com\jobportal\company\CompanyRequest.class
 com\jobportal\application\ApplicationStatusUpdateRequest.class
 com\jobportal\auth\UserPrincipal.class
+com\jobportal\job\dto\JobResponse.class
 com\jobportal\job\JobStatus.class
+com\jobportal\auth\CustomAccessDeniedHandler.class
 com\jobportal\admin\AdminController.class
 com\jobportal\user\UserImage.class
 com\jobportal\job\EmployerJobController.class

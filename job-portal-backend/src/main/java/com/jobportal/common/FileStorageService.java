@@ -24,7 +24,7 @@ public class FileStorageService {
 
     @PostConstruct
     public void init() {
-        Path uploadPath = Path.of(properties.getUploadDir()).toAbsolutePath().normalize();
+        Path uploadPath = new java.io.File(properties.getUploadDir()).toPath().toAbsolutePath().normalize();
         try {
             Files.createDirectories(uploadPath);
         } catch (IOException ex) {
@@ -63,6 +63,6 @@ public class FileStorageService {
     }
 
     private Path getUploadPath() {
-        return Path.of(properties.getUploadDir()).toAbsolutePath().normalize();
+        return new java.io.File(properties.getUploadDir()).toPath().toAbsolutePath().normalize();
     }
 }

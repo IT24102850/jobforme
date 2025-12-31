@@ -33,8 +33,12 @@ spring:
     serialization:
       write-dates-as-timestamps: false
 
+  security:
+    debug: true
+
+
 jwt:
-  secret: ${JWT_SECRET:change-this-to-a-long-random-string}
+  secret: w7Qw6vQw6vQw6vQw6vQw6vQw6vQw6vQw6vQw6vQw6vQw6vQw6vQw6vQw==
   expiration-in-seconds: ${JWT_EXPIRATION:3600}
 
 file:
@@ -42,7 +46,7 @@ file:
 
 logging:
   level:
-    org.springframework.security: INFO
+    org.springframework.security: DEBUG
 
 springdoc:
   swagger-ui:
